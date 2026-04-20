@@ -1,0 +1,249 @@
+[
+  {
+    "oem": "toyota",
+    "family": "P0A80",
+    "family_prefixes": ["P0A80"],
+    "system": "hv_battery",
+    "meaning": "Replace hybrid battery pack / battery deterioration detected.",
+    "likely_causes": [
+      "One or more battery blocks are weak or imbalanced",
+      "Battery cooling fan or duct is restricted",
+      "High mileage or repeated heat exposure accelerated module aging"
+    ],
+    "low_risk_checks": [
+      "Verify the 12V battery is healthy before deeper hybrid diagnosis",
+      "Inspect battery cooling intake, fan, and ducts for lint, pet hair, or blockage",
+      "Review block-voltage and state-of-charge imbalance with a hybrid-capable scan tool"
+    ],
+    "escalation": "Escalate if confirmation would require pack opening, live HV measurement, or module replacement.",
+    "keywords": ["battery pack", "imbalance", "cooling fan", "state of charge", "reduced power"]
+  },
+  {
+    "oem": "toyota",
+    "family": "P0A7F",
+    "family_prefixes": ["P0A7F"],
+    "system": "hv_battery",
+    "meaning": "Hybrid battery pack deterioration / loss of usable capacity.",
+    "likely_causes": [
+      "Aged battery modules with reduced capacity",
+      "Repeated high-temperature operation",
+      "Battery cooling airflow issue"
+    ],
+    "low_risk_checks": [
+      "Confirm customer complaint matches rapid state-of-charge swings or poor EV assist",
+      "Inspect cooling intake and fan operation",
+      "Compare live-data block voltages and temperature sensor readings"
+    ],
+    "escalation": "Escalate if service requires internal battery inspection or module balancing.",
+    "keywords": ["battery aging", "state of charge swing", "weak hybrid battery"]
+  },
+  {
+    "oem": "toyota",
+    "family": "P0A93",
+    "family_prefixes": ["P0A93"],
+    "system": "thermal",
+    "meaning": "Inverter cooling system performance problem causing inverter or converter overheating risk.",
+    "likely_causes": [
+      "Inverter coolant pump failure",
+      "Low coolant level or trapped air",
+      "Restricted heat exchanger or poor coolant flow"
+    ],
+    "low_risk_checks": [
+      "Check inverter coolant reservoir level only when safe and cold",
+      "Look for visible turbulence or flow in the inverter reservoir where applicable",
+      "Inspect related pump fuses, relay supply, and obvious leaks"
+    ],
+    "escalation": "Escalate if diagnosis requires energized HV testing, inverter disassembly, or coolant bleed procedures beyond service information.",
+    "keywords": ["inverter cooling", "coolant pump", "overheat", "derate"]
+  },
+  {
+    "oem": "toyota",
+    "family": "P0A94",
+    "family_prefixes": ["P0A94"],
+    "system": "inverter",
+    "meaning": "DC/DC converter or inverter performance fault affecting propulsion or READY-state behavior.",
+    "likely_causes": [
+      "Internal inverter or converter fault",
+      "Low-voltage supply issue causing control instability",
+      "Companion cooling problem leading to protective shutdown"
+    ],
+    "low_risk_checks": [
+      "Verify 12V battery health and module supply voltage first",
+      "Check for companion inverter cooling faults such as P0A93",
+      "Inspect related low-voltage fuses, relays, and obvious coolant leaks"
+    ],
+    "escalation": "Escalate if the next step would require inverter disassembly, energized HV testing, or internal converter diagnosis.",
+    "keywords": ["inverter", "dc-dc", "converter", "no ready", "reduced power"]
+  },
+  {
+    "oem": "tesla",
+    "family": "BMS thermal / isolation families",
+    "family_prefixes": ["BMS_", "BMS_a", "BMS_w"],
+    "system": "hv_battery",
+    "meaning": "Battery management system faults related to pack protection, isolation, or thermal limits.",
+    "likely_causes": [
+      "Pack isolation concern or moisture intrusion",
+      "Cell imbalance or sensor disagreement",
+      "Battery temperature outside normal operating window"
+    ],
+    "low_risk_checks": [
+      "Check 12V support voltage and recent alerts before assuming pack failure",
+      "Review service-mode or scan-tool freeze data for temperature and isolation context",
+      "Inspect for collision damage, recent coolant loss, or water intrusion history"
+    ],
+    "escalation": "Escalate immediately if the vehicle reports isolation or pack-internal faults requiring pack opening or insulation testing.",
+    "keywords": ["tesla", "bms", "isolation", "battery temperature", "pack fault"]
+  },
+  {
+    "oem": "tesla",
+    "family": "CP / charge-port families",
+    "family_prefixes": ["CP_", "CP_a", "CP_w"],
+    "system": "charge",
+    "meaning": "Charge-port, pilot/proximity, or onboard charging faults that prevent or interrupt AC charging.",
+    "likely_causes": [
+      "Charge-port latch or proximity signal issue",
+      "Pilot communication fault with EVSE",
+      "Onboard charger derating due to temperature or supply quality"
+    ],
+    "low_risk_checks": [
+      "Test with a known-good EVSE before condemning the vehicle",
+      "Inspect the charge port for debris, heat damage, or latch problems",
+      "Check whether the failure occurs only on AC charging, only on DC fast charging, or both"
+    ],
+    "escalation": "Escalate if diagnosis requires charge-port removal, HV charger testing, or service-mode procedures beyond user-safe checks.",
+    "keywords": ["charge", "charge port", "pilot", "proximity", "ac charging"]
+  },
+  {
+    "oem": "tesla",
+    "family": "DI / drive inverter families",
+    "family_prefixes": ["DI_", "DI_a", "DIR_"],
+    "system": "inverter",
+    "meaning": "Drive inverter or motor-control fault causing propulsion shutdown, no-drive, or reduced-power events.",
+    "likely_causes": [
+      "Internal drive-unit or inverter fault",
+      "Resolver/current-sensor disagreement",
+      "Companion thermal derate or low-voltage support issue"
+    ],
+    "low_risk_checks": [
+      "Check whether the vehicle still enters drive or only enters READY with reduced output",
+      "Review companion thermal alerts and 12V support health",
+      "Inspect for recent impact damage, coolant loss, or repeated overheating history"
+    ],
+    "escalation": "Escalate when confirmation would require drive-unit removal, HV testing, or OEM service-mode procedures beyond safe external checks.",
+    "keywords": ["drive unit", "inverter", "motor control", "reduced power", "propulsion disabled"]
+  },
+  {
+    "oem": "gm",
+    "family": "P0AA6 isolation family",
+    "family_prefixes": ["P0AA6"],
+    "system": "hv_battery",
+    "meaning": "High-voltage isolation fault detected by the battery or propulsion system.",
+    "likely_causes": [
+      "Moisture intrusion in battery, heater, or A/C-driven thermal components",
+      "Damaged orange-cable insulation or connector sealing issue",
+      "Internal fault in battery, inverter, compressor, or heater circuits"
+    ],
+    "low_risk_checks": [
+      "Do not probe HV circuits; start with history of coolant leaks, collision work, or flood exposure",
+      "Confirm 12V power and scan all modules for companion thermal or charge faults",
+      "Inspect accessible low-voltage connectors, fuses, and coolant loss indicators"
+    ],
+    "escalation": "Escalate whenever the next step would require insulation testing or separating HV connectors.",
+    "keywords": ["gm", "bolt", "volt", "ultium", "isolation", "orange cable"]
+  },
+  {
+    "oem": "gm",
+    "family": "BECM / charge enable families",
+    "family_prefixes": ["BECM", "P1E00", "P1FFF"],
+    "system": "charge",
+    "meaning": "Battery energy control or charge-enable faults that can block charging or reduce propulsion output.",
+    "likely_causes": [
+      "Battery controller detected a pack, thermal, or contactor concern",
+      "Charge session aborted due to temperature or communication fault",
+      "Companion faults in charger, coolant pump, or contactor control"
+    ],
+    "low_risk_checks": [
+      "Identify whether the car refuses AC charging, DC charging, or both",
+      "Review battery temperature and coolant-pump activity in live data",
+      "Check for software campaign history and recent update or service events"
+    ],
+    "escalation": "Escalate if confirmation would require pack contactor testing or HV charger diagnostics.",
+    "keywords": ["charge enable", "becm", "dc fast charge", "charging disabled"]
+  },
+  {
+    "oem": "hyundai_kia",
+    "family": "ICCU families",
+    "family_prefixes": ["ICCU", "P1A", "BMS"],
+    "system": "charge",
+    "meaning": "Integrated charging control unit or related charging/DC-DC faults affecting 12V support and charging behavior.",
+    "likely_causes": [
+      "ICCU failure or current-sensing issue",
+      "12V battery stress caused by DC-DC support loss",
+      "Charging interruption due to heat or communication issues"
+    ],
+    "low_risk_checks": [
+      "Check 12V battery condition and charging-system symptoms first",
+      "Determine whether the failure is AC-only, DC-only, or includes 12V warning messages",
+      "Inspect charge-port condition, low-voltage fuses, and cooling airflow"
+    ],
+    "escalation": "Escalate if ICCU or onboard charger confirmation requires HV component replacement or energized measurements.",
+    "keywords": ["iccu", "12v battery", "charging interrupted", "e-gmp", "dc-dc"]
+  },
+  {
+    "oem": "hyundai_kia",
+    "family": "Battery / inverter cooling families",
+    "family_prefixes": ["BMS_TEMP", "INV_TEMP", "P1B"],
+    "system": "thermal",
+    "meaning": "Battery or inverter thermal management issue causing derate, slow charging, or shutdown protection.",
+    "likely_causes": [
+      "Coolant pump, valve, or chiller performance problem",
+      "Low coolant level or trapped air after service",
+      "Battery preconditioning or HVAC interaction fault"
+    ],
+    "low_risk_checks": [
+      "Check for recent coolant service, leaks, or repeated fast-charge overheating complaints",
+      "Review temperature sensors and coolant flow-related live data",
+      "Confirm cabin HVAC and battery conditioning complaints occur together or separately"
+    ],
+    "escalation": "Escalate if the next step requires cooling-loop service procedures or HV compressor/inverter testing.",
+    "keywords": ["battery cooling", "inverter cooling", "preconditioning", "derate", "thermal"]
+  },
+  {
+    "oem": "nissan",
+    "family": "Leaf battery temperature / rapid-charge limit families",
+    "family_prefixes": ["P31E", "B29C1", "LBC"],
+    "system": "thermal",
+    "meaning": "Battery temperature or charging-limit condition causing reduced fast-charge performance or power derate.",
+    "likely_causes": [
+      "High pack temperature after repeated fast charging",
+      "Temperature sensor disagreement or harness issue",
+      "Vehicle operating in hot ambient conditions with limited battery cooling"
+    ],
+    "low_risk_checks": [
+      "Clarify whether the complaint is slow DC charging after multiple sessions",
+      "Review battery temperature bars or scan-tool temperature sensor data",
+      "Check for companion charger or 12V support faults"
+    ],
+    "escalation": "Escalate if the vehicle reports persistent battery temperature or sensor faults that require pack service.",
+    "keywords": ["leaf", "rapidgate", "battery temperature", "slow fast charge", "thermal limit"]
+  },
+  {
+    "oem": "nissan",
+    "family": "Charger / DC-DC support families",
+    "family_prefixes": ["P317", "P31C", "OBC"],
+    "system": "charge",
+    "meaning": "Onboard charger or DC-DC converter related fault affecting charge acceptance or 12V system support.",
+    "likely_causes": [
+      "Onboard charger fault",
+      "DC-DC converter not maintaining the 12V system",
+      "Charge-port communication or EVSE compatibility problem"
+    ],
+    "low_risk_checks": [
+      "Verify 12V battery health before deeper EV diagnosis",
+      "Try a different known-good EVSE and compare AC versus DC charging behavior",
+      "Inspect charge-port pins, latch condition, and low-voltage fuses"
+    ],
+    "escalation": "Escalate if confirmation would require charger removal, HV connector separation, or energized diagnosis.",
+    "keywords": ["charger", "dc-dc", "12v support", "charge refusal", "leaf"]
+  }
+]
