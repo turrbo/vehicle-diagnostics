@@ -1,16 +1,10 @@
 ---
 name: vehicle-diagnostics
 description: >
-  Comprehensive vehicle diagnostic and repair advisor for all vehicle types (cars, trucks, motorcycles,
-  RVs, boats, ATVs, dirt bikes). Diagnose problems from symptoms or DTC codes, look up repair procedures,
-  search forums and NHTSA complaints for known issues, find recalls, decode VINs, and provide step-by-step
-  repair guidance with torque specs and fluid specifications. Integrates with NHTSA APIs (free, no key),
-  DTC code databases, EPA vehicle specs, and web/Reddit forum search. Use when the user asks to: diagnose
-  a vehicle problem, look up a check engine light code, troubleshoot symptoms (noises, vibrations, leaks,
-  overheating, won't start), find recalls or TSBs, look up repair procedures, check torque specs, find
-  correct fluids, interpret OBD-II data, research known issues for a specific vehicle, or get step-by-step
-  repair instructions. Complements the "mechanic" skill (maintenance tracking) by focusing on diagnosis
-  and repair.
+  Use when diagnosing vehicle problems from symptoms or DTC codes, checking recalls or NHTSA complaints,
+  decoding a VIN, interpreting OBD-II data, researching known issues for a specific vehicle, looking up
+  repair procedures, torque specs, or fluid specs, or providing step-by-step repair guidance for cars,
+  trucks, motorcycles, RVs, boats, ATVs, and dirt bikes.
 ---
 
 # Vehicle Diagnostics Skill
@@ -19,7 +13,7 @@ Diagnose vehicle problems and provide repair guidance using integrated tools, da
 
 ## Skill Directory
 
-`~/.claude/skills/vehicle-diagnostics/`
+Personal Codex installs typically live under `~/.codex/skills/vehicle-diagnostics/`.
 
 ## Available Tools
 
@@ -27,30 +21,32 @@ Diagnose vehicle problems and provide repair guidance using integrated tools, da
 | Script | Purpose | Usage |
 |---|---|---|
 | `scripts/dtc_lookup.py` | DTC code lookup (28,000+ codes) | `python3 <skill>/scripts/dtc_lookup.py P0300` |
-| `scripts/nhtsa_lookup.py` | VIN decode, recalls, complaints | `python3 <skill>/scripts/nhtsa_lookup.py vin <VIN>` |
+| `scripts/nhtsa_lookup.py` | VIN decode, recalls, complaints, investigations, TSBs | `python3 <skill>/scripts/nhtsa_lookup.py vin <VIN>` |
 | `scripts/epa_lookup.py` | EPA vehicle specs & MPG data | `python3 <skill>/scripts/epa_lookup.py search <year> <make>` |
 
 ### Reference Files (read when needed)
 | File | When to Read |
 |---|---|
 | `references/diagnostic-trees.md` | Symptom-based troubleshooting (noises, won't start, overheating, vibration, brakes, transmission, electrical, leaks, AC, steering, suspension) |
-| `references/torque-specs.md` | Lug nut torque, spark plugs, brake components, suspension, engine fasteners, general bolt torque by size |
-| `references/fluid-specs.md` | Engine oil, transmission fluid, coolant, brake fluid, power steering, gear oil, grease types by manufacturer |
+| `references/torque-specs.md` | Vehicle-specific torque lookup workflow, source priority, search patterns, and response template |
+| `references/fluid-specs.md` | Vehicle-specific fluid lookup workflow, source priority, search patterns, and response template |
 | `references/common-repairs.md` | Step-by-step procedures: brakes, spark plugs, belts, battery, filters, thermostat, bearings, O2 sensors, alternator, starter, coolant flush, trans fluid, CV axle, tie rods, MAF cleaning, throttle body |
 | `references/obd2-guide.md` | OBD-II PIDs, normal sensor ranges, fuel trim interpretation, monitor readiness, freeze frame, ELM327/python-obd usage |
 
 ## Diagnostic Workflow
 
 ### 1. Gather Vehicle Info
-Ask for: Year, Make, Model, Engine, Mileage. VIN is ideal (decode with nhtsa_lookup.py).
+Ask for: Year, Make, Model, Engine, Mileage. VIN is ideal (decode with `nhtsa_lookup.py`).
+
+For torque and fluid lookups, do not proceed on partial vehicle info if the exact spec depends on engine, drivetrain, trim, transmission, or axle. Ask for the missing details first.
 
 ### 2. Identify the Problem Type
 
-**DTC Code Present** -> Run `dtc_lookup.py` for code definition, causes, and fixes. Then search NHTSA complaints for the vehicle to see if it's a known issue.
+**DTC Code Present** -> Run `dtc_lookup.py` for code definition, causes, and fixes. Then check NHTSA complaints, investigations, and TSBs for the vehicle to see if it's a known issue.
 
 **Symptom Only** -> Read `references/diagnostic-trees.md` for the matching symptom category. Walk through the decision tree with the user.
 
-**"Is this a known issue?"** -> Run `nhtsa_lookup.py complaints <make> <model> <year>` to check NHTSA complaints database. Search web/Reddit for "<year> <make> <model> <symptom>" common problems.
+**"Is this a known issue?"** -> Run `nhtsa_lookup.py complaints <make> <model> <year>`, `nhtsa_lookup.py investigations <make> <model> <year>`, and `nhtsa_lookup.py tsbs <make> <model> <year>` to check NHTSA complaints, investigations, and technical service bulletins. Search web/Reddit for "<year> <make> <model> <symptom>" common problems.
 
 ### 3. Research the Issue
 
@@ -67,6 +63,14 @@ python3 <skill>/scripts/nhtsa_lookup.py recalls-vin <VIN>
 # Check NHTSA complaints
 python3 <skill>/scripts/nhtsa_lookup.py complaints <make> <model> <year>
 
+# Check NHTSA investigations
+python3 <skill>/scripts/nhtsa_lookup.py investigations <make> <model> <year>
+
+# Check NHTSA TSBs
+python3 <skill>/scripts/nhtsa_lookup.py tsbs <make> <model> <year>
+python3 <skill>/scripts/nhtsa_lookup.py tsbs <make> <model> <year> --keyword "oil consumption"
+python3 <skill>/scripts/nhtsa_lookup.py tsbs <make> <model> <year> --component "ENGINE" --limit 5
+
 # DTC search by keyword
 python3 <skill>/scripts/dtc_lookup.py --search "misfire"
 python3 <skill>/scripts/dtc_lookup.py --system transmission
@@ -76,24 +80,44 @@ python3 <skill>/scripts/epa_lookup.py search <year> <make>
 python3 <skill>/scripts/epa_lookup.py specs <vehicle_id>
 ```
 
-For forum research, use the web-search skill to search:
+For forum research, use web search to search:
 - `<year> <make> <model> <symptom OR code> site:reddit.com/r/MechanicAdvice`
 - `<year> <make> <model> <symptom OR code> forum`
 - `<year> <make> <model> common problems`
 
-### 4. Provide Diagnosis
+### 4. Torque and Fluid Requests
+
+Treat torque and fluid requests as vehicle-specific research tasks, not generic reference lookups.
+
+#### Torque requests
+
+1. Collect `year make model engine` and the exact fastener/component.
+2. Read `references/torque-specs.md`.
+3. Search for an OEM or service-manual-quality spec for that exact vehicle and component.
+4. Return the exact value, units, applicability, and any torque-angle or one-time-use notes.
+5. If exact fitment cannot be verified, say that clearly and do not substitute a generic range.
+
+#### Fluid requests
+
+1. Collect `year make model engine` plus the exact system and transmission/drivetrain details if relevant.
+2. Read `references/fluid-specs.md`.
+3. Search for an owner’s-manual, OEM, or service-manual-quality spec for that exact vehicle and system.
+4. Return the exact fluid spec, approval, capacity, applicability, and any compatibility warnings.
+5. If exact fitment cannot be verified, say that clearly and do not substitute a generic manufacturer habit or color guess.
+
+### 5. Provide Diagnosis
 
 Present findings structured as:
 1. **What the code/symptom means** (plain language)
 2. **Most likely causes** (ordered by probability)
 3. **How to confirm** (specific tests to narrow it down)
-4. **Known issues** (NHTSA complaints, forum consensus if found)
+4. **Known issues** (NHTSA complaints, investigations, TSBs, forum consensus if found)
 5. **Repair procedure** (reference common-repairs.md or provide custom steps)
-6. **Parts and specs needed** (reference torque-specs.md and fluid-specs.md)
+6. **Parts and specs needed** (use vehicle-specific torque/fluid lookup workflow when applicable)
 7. **Estimated difficulty** (DIY vs shop recommendation)
 8. **Cost estimate range** (DIY parts vs shop labor + parts)
 
-### 5. Safety Warnings
+### 6. Safety Warnings
 
 Always flag when applicable:
 - Brake work: "Test brakes at low speed in a safe area before normal driving"
@@ -121,6 +145,9 @@ python3 scripts/nhtsa_lookup.py vin <VIN>                      # Decode VIN
 python3 scripts/nhtsa_lookup.py recalls <make> <model> <year>  # Recalls by vehicle
 python3 scripts/nhtsa_lookup.py recalls-vin <VIN>              # Recalls by VIN
 python3 scripts/nhtsa_lookup.py complaints <make> <model> <year>  # NHTSA complaints
+python3 scripts/nhtsa_lookup.py investigations <make> <model> <year>  # NHTSA investigations
+python3 scripts/nhtsa_lookup.py tsbs <make> <model> <year>            # NHTSA TSBs
+python3 scripts/nhtsa_lookup.py tsbs <make> <model> <year> --keyword "misfire" --component "ENGINE" --limit 5
 python3 scripts/nhtsa_lookup.py --json <command> <args>        # JSON output
 ```
 

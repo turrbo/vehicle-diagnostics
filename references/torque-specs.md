@@ -1,248 +1,116 @@
-# Torque Specifications Reference
+# Vehicle-Specific Torque Lookup
 
-Common torque specifications by category. Always verify against manufacturer specs for the specific vehicle. These are general guidelines.
+Use this reference when the user needs a torque specification for a specific vehicle and component. Do not answer from memory or from generic torque tables when a make/model/year-specific value is required.
 
-## Table of Contents
-- [Wheel Lug Nuts/Bolts](#wheel-lug-nutsbolts)
-- [Engine Fasteners](#engine-fasteners)
-- [Brake Components](#brake-components)
-- [Suspension & Steering](#suspension--steering)
-- [Drivetrain](#drivetrain)
-- [General Fastener Torque by Size](#general-fastener-torque-by-size)
+## Required Inputs
 
----
+Collect as many of these as possible before answering:
 
-## Wheel Lug Nuts/Bolts
+- Year
+- Make
+- Model
+- Engine / displacement / engine code
+- Drivetrain or trim when relevant
+- Exact component and fastener location
 
-**CRITICAL: Always use a torque wrench. Over-torquing warps rotors. Under-torquing causes wheel loss.**
+Examples:
 
-| Vehicle Type | Typical Range | Notes |
-|---|---|---|
-| Compact cars | 76-90 ft-lbs | Honda: 80, Toyota: 76 |
-| Mid-size sedan | 80-100 ft-lbs | Camry: 76, Accord: 80, Fusion: 100 |
-| Full-size sedan | 95-110 ft-lbs | |
-| Trucks (1/2 ton) | 120-145 ft-lbs | F-150: 150, Silverado: 140, RAM: 130 |
-| Trucks (3/4-1 ton) | 140-165 ft-lbs | F-250: 165, 2500HD: 140 |
-| SUV | 100-140 ft-lbs | Varies widely by model |
-| European cars | 80-120 ft-lbs | Often use bolts, not nuts. BMW: 88-96, Mercedes: 96, VW/Audi: 89 |
-| Motorcycles | 65-90 ft-lbs | Harley front: 60-65, rear: 65-70 |
+- `2018 Toyota Camry 2.5L oil drain plug torque`
+- `2016 Ford F-150 3.5 EcoBoost front brake caliper bracket bolt torque`
+- `2021 Honda CR-V 1.5T wheel lug nut torque`
 
-**Common specific values:**
-- Ford F-150 (2015+): 150 ft-lbs
-- Chevy Silverado/GMC Sierra: 140 ft-lbs
-- RAM 1500: 130 ft-lbs
-- Toyota Tacoma/4Runner: 83 ft-lbs
-- Jeep Wrangler: 95-100 ft-lbs
-- Honda Civic/Accord: 80 ft-lbs
-- Toyota Camry/Corolla: 76 ft-lbs
-- Subaru (most): 89 ft-lbs
-- BMW (most): 88-96 ft-lbs
-- Tesla Model 3/Y: 129 ft-lbs
+If the user only gives a broad request such as "torque specs for my brakes", ask which fastener they need. Brake jobs often involve different specs for bracket bolts, slide pins, banjo bolts, bleeders, and wheel lugs.
 
-**Star pattern**: Always tighten in a star/cross pattern, not circular. Torque in 2-3 stages.
+## Source Priority
 
----
+Use the highest-quality source available in this order:
 
-## Engine Fasteners
+1. OEM factory service manual, owner’s manual, or manufacturer service information
+2. OEM parts or maintenance portal that explicitly states the spec
+3. Service-information publishers that cite vehicle-specific data
+4. Model-specific forum or enthusiast documentation only as supporting evidence, never as sole authority for a safety-critical torque value
 
-### Spark Plugs
-| Type | Torque | Notes |
-|---|---|---|
-| 14mm with gasket | 18-22 ft-lbs | Most common size |
-| 14mm tapered seat | 7-15 ft-lbs | No gasket/washer |
-| 12mm with gasket | 10-13 ft-lbs | Ford EcoBoost, some imports |
-| 18mm with gasket | 25-30 ft-lbs | Older engines |
-| Aluminum heads | Reduce by ~25% | Aluminum strips easier |
+For wheel lug torque, an owner’s manual is often acceptable if it clearly matches the exact vehicle.
 
-**Anti-seize**: Controversial. Most plug manufacturers say NO anti-seize (torque specs assume dry threads). If using anti-seize, reduce torque by 20%.
+## Search Patterns
 
-### Oil Drain Plug
-| Material | Typical Torque | Notes |
-|---|---|---|
-| Steel pan, steel plug | 25-35 ft-lbs | Most common |
-| Aluminum pan, steel plug | 20-25 ft-lbs | Many modern vehicles |
-| Aluminum pan, aluminum plug | 15-20 ft-lbs | Some European cars |
-| Plastic pan (BMW/VW) | 18-22 ft-lbs | DO NOT over-torque |
+Search with the exact vehicle and exact component. Good queries:
 
-**Use new crush washer every oil change.** Over-torquing is the #1 cause of stripped oil pans.
+- `"<year> <make> <model> <engine> <component> torque spec"`
+- `site:manualslib.com "<year> <make> <model>" "<component>" torque`
+- `site:ford.com OR site:toyota.com OR site:honda.com "<year> <make> <model>" torque`
+- `"<year> <make> <model> service manual" "<component>" torque`
+- `site:reddit.com/r/MechanicAdvice "<year> <make> <model>" "<component>" torque`
 
-### Valve Cover
-| Engine Type | Typical Torque | Notes |
-|---|---|---|
-| 4-cylinder | 7-10 ft-lbs | Use inch-lbs for precision |
-| V6/V8 | 7-12 ft-lbs | Often 89-106 in-lbs |
-| GM LS engines | 106 in-lbs | Specific sequence required |
+When the first result set is ambiguous, tighten the query with one of:
 
-### Exhaust Manifold
-| Type | Typical Torque | Notes |
-|---|---|---|
-| Cast iron to cast iron head | 25-35 ft-lbs | Use anti-seize |
-| Cast iron to aluminum head | 15-25 ft-lbs | Check for warpage |
-| Stainless header | 20-30 ft-lbs | Retorque after heat cycle |
+- trim
+- drivetrain
+- engine code
+- axle / front / rear
+- left / right
 
-### Intake Manifold
-| Type | Typical Torque |
-|---|---|
-| Plastic intake (modern) | 7-10 ft-lbs (89 in-lbs typical) |
-| Aluminum intake | 15-25 ft-lbs |
-| Cast iron intake | 25-35 ft-lbs |
+## What To Return
 
----
+Answer with:
 
-## Brake Components
+1. Exact torque value
+2. Units exactly as sourced
+3. Fastener/component identity
+4. Vehicle fitment used
+5. Any one-time-use or torque-angle notes
+6. Source quality statement
 
-### Caliper Bracket Bolts
-| Vehicle Size | Typical Torque | Notes |
-|---|---|---|
-| Compact car | 70-85 ft-lbs | Bracket to knuckle |
-| Mid-size | 80-100 ft-lbs | |
-| Truck/SUV | 100-150 ft-lbs | |
+Template:
 
-### Caliper Slide Pin Bolts
-| Vehicle Size | Typical Torque | Notes |
-|---|---|---|
-| Most vehicles | 25-40 ft-lbs | Lube slide pins with silicone brake grease |
-| Heavy duty | 35-50 ft-lbs | |
+```text
+Torque spec: [value + units]
+Applies to: [year make model engine trim/component]
+Notes: [torque-angle, replace fastener, dry/oiled threads, sequence, stage tightening]
+Source quality: [OEM manual / owner's manual / service information / lower-confidence supporting source]
+```
 
-### Brake Line Fittings
-| Size | Typical Torque | Notes |
-|---|---|---|
-| 3/16" (10mm) | 10-12 ft-lbs | Use flare nut wrench only |
-| 1/4" (12mm) | 12-15 ft-lbs | Never use open-end wrench |
-| Banjo bolt | 25-35 ft-lbs | New copper washers required |
+## High-Risk Cases
 
-### Bleeder Screws
-- Typical: 8-12 ft-lbs
-- DO NOT over-torque. They break easily and are expensive to extract
+Do not give a guessed or generic value for these:
 
-### Rotor Retaining Screw
-- 5-7 ft-lbs (just holds rotor on during assembly, not structural)
+- Wheel lugs if exact vehicle is known but unverified
+- Brake caliper bracket bolts
+- Brake hose banjo bolts
+- Spark plugs on aluminum heads
+- Cylinder head bolts
+- Connecting rod or main bearing fasteners
+- Axle nuts / hub nuts
+- Suspension and steering fasteners
+- Drain plugs on plastic or aluminum pans
+- Torque-to-yield fasteners of any kind
 
----
+If you cannot verify the exact spec, say so clearly and stop short of inventing one.
 
-## Suspension & Steering
+## When Exact Spec Cannot Be Verified
 
-### Ball Joints
-| Location | Typical Torque | Notes |
-|---|---|---|
-| Lower ball joint nut | 65-110 ft-lbs | Use new cotter pin, NEVER reuse |
-| Upper ball joint nut | 40-65 ft-lbs | Torque-to-yield on some vehicles |
+Allowed fallback behavior:
 
-### Tie Rod End
-| Type | Typical Torque | Notes |
-|---|---|---|
-| Outer tie rod nut | 35-50 ft-lbs | New cotter pin required |
-| Inner tie rod | 50-75 ft-lbs | Use inner tie rod tool |
-| Jam nut | 40-50 ft-lbs | Set alignment first |
+- State that the exact vehicle-specific torque spec could not be confirmed
+- Explain what additional detail is missing
+- Recommend obtaining the factory service info or owner’s manual
 
-### Sway Bar End Links
-- Most vehicles: 40-55 ft-lbs
-- Hold the stud with Allen key while tightening nut
+Not allowed:
 
-### Strut Mount
-| Type | Typical Torque |
-|---|---|
-| Top mount nuts (to body) | 30-45 ft-lbs |
-| Center shaft nut | 35-55 ft-lbs |
-| Strut-to-knuckle bolts | 90-140 ft-lbs |
+- Giving a generic range as if it were correct for that vehicle
+- Mixing values from different engines, trims, or generations without saying so
+- Treating forum memory as authoritative for safety-critical fasteners
 
-### Control Arm
-| Location | Typical Torque |
-|---|---|
-| Pivot bolts (to frame) | 90-130 ft-lbs |
-| Ball joint to knuckle | 65-110 ft-lbs |
+## Sanity Checks
 
-**Suspension bolts: ALWAYS torque with vehicle weight on wheels (at ride height), not on jack stands.** This prevents premature bushing failure.
+Before finalizing:
 
----
+- Confirm the vehicle generation matches the source year range
+- Confirm the component location matches front vs rear, left vs right, upper vs lower
+- Check whether the spec is in `ft-lb`, `in-lb`, or `N·m`
+- Check for a torque-plus-angle step
+- Check whether the source assumes new bolts, dry threads, or lubricant/threadlocker
 
-## Drivetrain
+## Response Style
 
-### Axle Nut (hub nut)
-| Vehicle Type | Typical Torque | Notes |
-|---|---|---|
-| FWD compact | 150-185 ft-lbs | New nut every time (some are torque-to-yield) |
-| FWD mid-size | 175-220 ft-lbs | |
-| 4WD truck | 175-250 ft-lbs | |
-| Honda (most) | 181 ft-lbs | Stake the nut after torquing |
-| Toyota (most) | 217 ft-lbs | |
-
-### Transmission Pan Bolts
-| Transmission | Typical Torque |
-|---|---|
-| GM 4L60E/4L80E | 96-108 in-lbs |
-| Ford (most) | 96-120 in-lbs |
-| Chrysler (most) | 105 in-lbs |
-
-### Differential Cover
-- Most: 20-35 ft-lbs
-- Use RTV sealant (no gasket on many) or new gasket
-- Tighten in cross pattern
-
-### U-Joint Straps/Bolts
-- Strap bolts: 15-20 ft-lbs
-- Flange bolts: 70-95 ft-lbs
-
-### Transfer Case Drain/Fill
-- Most: 15-25 ft-lbs
-
----
-
-## General Fastener Torque by Size
-
-### SAE Grade 5 (most common automotive)
-| Bolt Size | Coarse Thread | Fine Thread |
-|---|---|---|
-| 1/4" | 8 ft-lbs | 10 ft-lbs |
-| 5/16" | 17 ft-lbs | 19 ft-lbs |
-| 3/8" | 31 ft-lbs | 35 ft-lbs |
-| 7/16" | 49 ft-lbs | 55 ft-lbs |
-| 1/2" | 75 ft-lbs | 85 ft-lbs |
-| 9/16" | 110 ft-lbs | 120 ft-lbs |
-| 5/8" | 150 ft-lbs | 170 ft-lbs |
-| 3/4" | 270 ft-lbs | 295 ft-lbs |
-
-### SAE Grade 8
-| Bolt Size | Coarse Thread | Fine Thread |
-|---|---|---|
-| 1/4" | 12 ft-lbs | 14 ft-lbs |
-| 5/16" | 24 ft-lbs | 27 ft-lbs |
-| 3/8" | 44 ft-lbs | 49 ft-lbs |
-| 7/16" | 70 ft-lbs | 78 ft-lbs |
-| 1/2" | 105 ft-lbs | 120 ft-lbs |
-| 9/16" | 155 ft-lbs | 170 ft-lbs |
-| 5/8" | 210 ft-lbs | 240 ft-lbs |
-| 3/4" | 380 ft-lbs | 420 ft-lbs |
-
-### Metric Class 8.8 (equivalent to Grade 5)
-| Bolt Size | Torque |
-|---|---|
-| M6 | 7-9 ft-lbs |
-| M8 | 18-22 ft-lbs |
-| M10 | 36-43 ft-lbs |
-| M12 | 63-74 ft-lbs |
-| M14 | 100-118 ft-lbs |
-| M16 | 155-184 ft-lbs |
-
-### Metric Class 10.9 (equivalent to Grade 8)
-| Bolt Size | Torque |
-|---|---|
-| M6 | 10-13 ft-lbs |
-| M8 | 25-31 ft-lbs |
-| M10 | 50-62 ft-lbs |
-| M12 | 88-103 ft-lbs |
-| M14 | 140-166 ft-lbs |
-| M16 | 217-258 ft-lbs |
-
-### Bolt Grade Identification
-- **SAE Grade 5**: 3 radial lines on head
-- **SAE Grade 8**: 6 radial lines on head
-- **Metric 8.8**: "8.8" stamped on head
-- **Metric 10.9**: "10.9" stamped on head
-- **Metric 12.9**: "12.9" stamped on head
-
-### Thread Locking Compounds
-- **Blue (medium)**: Removable with hand tools. Use on bolts that need periodic service
-- **Red (permanent)**: Requires heat (>450F) to remove. Use on critical fasteners that should never come loose
-- **Green (wicking)**: For already-assembled fasteners. Wicks into threads via capillary action
-- **Purple (low strength)**: For small screws (#6 and smaller). Adjustable by hand
+Keep it direct. If the source is strong, provide the number and the notes. If the source is weak or incomplete, say that the value is not verified for the exact vehicle and say what detail or document is needed to finish the lookup.
